@@ -54,6 +54,7 @@ def assign_value(key, value):
     options[key] = value
 
 
+# This method is ugly, but thankfully it can't be more complex than this
 def save_options():
     command = entry_LogonCommand.get("1.0", "end-1c")
     if command == "" and "LogonCommand" in options:
@@ -78,6 +79,8 @@ def save_options():
     save_options_to_file()
 
 
+# This method is ugly, but thankfully it can't be more complex than this
+# Moreover I should use a true XML generator
 def save_options_to_file():
     with open("start Windows Sandbox.wsb", "w") as f:
         f.write("<Configuration>\n")
@@ -116,14 +119,14 @@ root.title("GUI Windows Sandbox configuration")
 label_title = Label(root, text="GUI Windows Sandbox configuration", font=bold_font)
 label_title.grid(row=0, column=0, columnspan=total_columns, padx=10, pady=10)
 
-button_Source = Button(
+button_documentation = Button(
     root,
     text="Microsoft documentation",
     command=lambda: open_in_web_browser(
         "https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-sandbox/windows-sandbox-configure-using-wsb-file"
     )
 )
-button_Source.grid(row=1, column=0, columnspan=total_columns, padx=padding_x, pady=padding_y)
+button_documentation.grid(row=1, column=0, columnspan=total_columns, padx=padding_x, pady=padding_y)
 
 # Main content
 
@@ -164,17 +167,6 @@ for i in range(len(Networking_vals)):
     Radiobutton_Networking_Enable.grid(row=5, column=i, padx=inner_padding_x, pady=inner_padding_y)
 
 # Mapped folders
-"""
-datastructure : 
-<MappedFolders>
-    <MappedFolder>
-        <HostFolder>C:\\Users\\Public\\Downloads</HostFolder>
-        <SandboxFolder>C:\\Users\\WDAGUtilityAccount\\Downloads</SandboxFolder>
-        <ReadOnly>true</ReadOnly>
-    </MappedFolder>
-<MappedFolder>
-"""
-
 label_MappedFolders = Label(root, text="Mapped folders", font=bold_font)
 label_MappedFolders.grid(row=6, column=left_column_number, columnspan=right_column_number, padx=padding_x,
                          pady=padding_y)
@@ -239,7 +231,7 @@ for i in range(len(VideoInput_vals)):
 
 # Protected client
 label_ProtectedClient = Label(root, text="Protected client", font=bold_font)
-label_ProtectedClient.grid(row=12, column=0, columnspan=left_column_number, padx=padding_x, pady=padding_y)
+label_ProtectedClient.grid(row=10, column=0, columnspan=left_column_number, padx=padding_x, pady=padding_y)
 ProtectedClient_vals = ["Default", "Enable", "Disable"]
 ProtectedClient_val = StringVar()
 ProtectedClient_val.set(ProtectedClient_vals[0])
@@ -252,11 +244,11 @@ for i in range(len(ProtectedClient_vals)):
         value=ProtectedClient_vals[i],
         command=lambda: assign_value("ProtectedClient", ProtectedClient_val.get())
     )
-    Radiobutton_ProtectedClient_Enable.grid(row=13, column=i, padx=inner_padding_x, pady=inner_padding_y)
+    Radiobutton_ProtectedClient_Enable.grid(row=11, column=i, padx=inner_padding_x, pady=inner_padding_y)
 
 # Printer redirection
 label_PrinterRedirection = Label(root, text="Printer redirection", font=bold_font)
-label_PrinterRedirection.grid(row=14, column=0, columnspan=left_column_number, padx=padding_x, pady=padding_y)
+label_PrinterRedirection.grid(row=12, column=0, columnspan=left_column_number, padx=padding_x, pady=padding_y)
 PrinterRedirection_vals = ["Default", "Enable", "Disable"]
 PrinterRedirection_val = StringVar()
 PrinterRedirection_val.set(PrinterRedirection_vals[0])
@@ -269,11 +261,11 @@ for i in range(len(PrinterRedirection_vals)):
         value=PrinterRedirection_vals[i],
         command=lambda: assign_value("PrinterRedirection", PrinterRedirection_val.get())
     )
-    Radiobutton_PrinterRedirection_Enable.grid(row=15, column=i, padx=inner_padding_x, pady=inner_padding_y)
+    Radiobutton_PrinterRedirection_Enable.grid(row=13, column=i, padx=inner_padding_x, pady=inner_padding_y)
 
 # Clipboard redirection
 label_ClipboardRedirection = Label(root, text="Clipboard redirection", font=bold_font)
-label_ClipboardRedirection.grid(row=16, column=0, columnspan=left_column_number, padx=padding_x, pady=padding_y)
+label_ClipboardRedirection.grid(row=14, column=0, columnspan=left_column_number, padx=padding_x, pady=padding_y)
 ClipboardRedirection_vals = ["Default", "Enable", "Disable"]
 ClipboardRedirection_val = StringVar()
 ClipboardRedirection_val.set(ClipboardRedirection_vals[0])
@@ -286,7 +278,7 @@ for i in range(len(ClipboardRedirection_vals)):
         value=ClipboardRedirection_vals[i],
         command=lambda: assign_value("ClipboardRedirection", ClipboardRedirection_val.get())
     )
-    Radiobutton_ClipboardRedirection_Enable.grid(row=17, column=i, padx=inner_padding_x, pady=inner_padding_y)
+    Radiobutton_ClipboardRedirection_Enable.grid(row=15, column=i, padx=inner_padding_x, pady=inner_padding_y)
 
 # Memory in MB
 label_Memory = Label(root, text="Memory in MB", font=bold_font)
@@ -296,8 +288,8 @@ entry_Memory.grid(row=5, column=left_column_number, columnspan=right_column_numb
 
 # Buttons on the bottom
 button_save = Button(root, text="Save", command=lambda: save_options())
-button_save.grid(row=40, column=0, padx=padding_x, pady=padding_y)
+button_save.grid(row=999, column=0, padx=padding_x, pady=padding_y)
 button_quit = Button(root, text="Quit", command=root.destroy)
-button_quit.grid(row=40, column=total_columns - 1, padx=padding_x, pady=padding_y + padding_y)
+button_quit.grid(row=999, column=total_columns - 1, padx=padding_x, pady=padding_y + padding_y)
 
 root.mainloop()
