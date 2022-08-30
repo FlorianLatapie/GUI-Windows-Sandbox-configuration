@@ -130,3 +130,6 @@ dmypy.json
 
 # JetBrains Pycharm 
 .idea/*
+
+# tmp files of the project 
+start Windows Sandbox.wsb
